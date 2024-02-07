@@ -10,7 +10,6 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/ring.dart';
 
 /// The [SharedPreferences] key to access the alarm fire count.
 const String countKey = 'count';

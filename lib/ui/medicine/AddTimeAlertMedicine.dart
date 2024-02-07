@@ -1,27 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:io';
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
-import '../../model/ModelDayMedicine.dart';
-import '../../tool/color.dart'; 
-import '../../tool/loader.dart';
-import '../../tool/screen.dart';
+import 'package:flutter_alarm_safealert/tool/color.dart';
 import '../../tool/url.dart';
 import '../../widget/CustomCupertinoTimerPicker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io' as Io;
 import 'package:bottom_sheet/bottom_sheet.dart';
 
@@ -67,11 +50,11 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
       appBar:AppBar(
         centerTitle: true,
         backgroundColor: AppColors.colorMain,
-        title: new Text("คุณต้องการรับแจ้งเตือนกี่โมง",style: TextStyle(
+        title: const Text("คุณต้องการรับแจ้งเตือนกี่โมง",style: TextStyle(
             fontSize: 25,color: Colors.black,
             fontFamily: 'SukhumvitSet-Bold'),),
         leading: IconButton(
-          icon: ImageIcon(
+          icon: const ImageIcon(
             AssetImage("assets/images/arrow_left.png"),
             size:40,
             color: Colors.black,
@@ -82,16 +65,16 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(left:20,top: 20,right: 20,bottom: 170),
+        margin: const EdgeInsets.only(left:20,top: 20,right: 20,bottom: 170),
         child:
         Expanded( // ส่วนของลิสรายการ
-          child: listTimeLine.length > 0 // กำหนดเงื่อนไขตรงนี้
+          child: listTimeLine.isNotEmpty // กำหนดเงื่อนไขตรงนี้
               ? ListView.builder( // กรณีมีรายการ แสดงปกติ
             itemCount: listTimeLine.length ,
             itemBuilder: (context, index) {
               return
                 Card(
-                  margin: EdgeInsets.only(top: 10,bottom: 10),
+                  margin: const EdgeInsets.only(top: 10,bottom: 10),
               color: AppColors.bgColor, // สี
               // shadowColor: Colors.red.withAlpha(100), // สีของเงา
               // elevation: 5.0, // การยกของเงา
@@ -102,25 +85,25 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 15.0, right: 15.0),
                         width: 200,
                         child: TextField(
                           enabled: false,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 25.0,
                               fontFamily: 'SukhumvitSet-Medium',
                               color: Colors.black),
-                          decoration: new InputDecoration(
+                          decoration: InputDecoration(
                               contentPadding:
                               const EdgeInsets.symmetric(
                                   vertical: 10.0,
                                   horizontal: 15),
                               //ปรับตำแหน่งcursor เริ่มต้นในช่องข้อความ
-                              border: new OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                   borderRadius:
-                                  const BorderRadius.all(
-                                    const Radius.circular(
+                                  BorderRadius.all(
+                                    Radius.circular(
                                         20.0),
                                   ),
                                   borderSide: BorderSide(
@@ -129,7 +112,7 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                                           .none)),
                               filled: true,
                               hintText: listTimeLine[index],
-                              hintStyle: new TextStyle(
+                              hintStyle: TextStyle(
                                   fontFamily: 'SukhumvitSet-Medium',
                                   color: Colors
                                       .grey[800]),
@@ -140,14 +123,14 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                       ),
 
                         Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                         left: 15.0, right: 15.0),
                               child: InkWell(
                                 onTap: (){
                                   indexEdit = index;
                                   _showSheetTime();
                                 },
-                                child:  Text("แก้ไขเวลา", style: TextStyle(
+                                child:  const Text("แก้ไขเวลา", style: TextStyle(
                                     fontSize: 25, color: Colors.black,
                                     fontFamily: 'SukhumvitSet-Medium')),
                               )
@@ -184,7 +167,7 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                     statusAdd = true;
                     _showSheetTime();
                   },
-                  child: Row(
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -202,11 +185,11 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
             Container(
               width: 120,
               alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 5,top: 10),
+              margin: const EdgeInsets.only(right: 5,top: 10),
               child: ElevatedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(
-                    EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
+                    const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
                   shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0), )),
                   backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.colorMain),
@@ -224,7 +207,7 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                   MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Text(
+                      child: const Text(
                         "ตกลง",
                         style: TextStyle(
                             color: Colors.white,
@@ -319,8 +302,8 @@ class _AddTimeAlertMedicine extends State<AddTimeAlertMedicine> {
                 child: Container(
                   width: 120,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(5),
-                  child: Text(
+                  padding: const EdgeInsets.all(5),
+                  child: const Text(
                     "ตกลง",
                     style: TextStyle(
                         color: Colors.black,

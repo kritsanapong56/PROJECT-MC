@@ -7,19 +7,13 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:intl/intl.dart';
 
 import '../../tool/color.dart'; 
-import '../../tool/loader.dart';
-import '../../tool/screen.dart';
 import '../../tool/url.dart';
 import '../../ui/medicine/TimeDayMedicine.dart';
 import '../../widget/CustomCupertinoDatePicker.dart';
-import '../../widget/CustomCupertinoPickerApp.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
@@ -79,11 +73,11 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
       appBar:AppBar(
         centerTitle: true,
           backgroundColor: AppColors.colorMain,
-          title: new Text("เลือกวันที่เริ่มทาน",style: TextStyle(
+          title: new Text("เลือกวันที่เริ่มทาน",style: const TextStyle(
             fontSize: 25,color: Colors.black,
               fontFamily: 'SukhumvitSet-Bold'),),
           leading: IconButton(
-            icon: ImageIcon(
+            icon: const ImageIcon(
                 AssetImage("assets/images/arrow_left.png"),
                   size:40,
                   color: Colors.black,
@@ -96,17 +90,17 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        margin: EdgeInsets.only(top: 50.0,left: 20,right: 20),
+        margin: const EdgeInsets.only(top: 50.0,left: 20,right: 20),
         child: Column(
           children: [
             Container(
               color: AppColors.colorBlueLight,
-              padding: EdgeInsets.only(left: 5,right: 5,top: 15,bottom: 15),
-              child: Row(
+              padding: const EdgeInsets.only(left: 5,right: 5,top: 15,bottom: 15),
+              child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: const Text(
+                    child: Text(
                       "เลือกวันที่เริ่มทานยา",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -117,7 +111,7 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
                     ),
                   ),
                   Expanded(
-                    child: const Text(
+                    child: Text(
                       "ตกลง",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -153,7 +147,7 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
                         //     ),
                         //   ),
                         // ),
-                        selectionOverlay: CupertinoPickerDefaultSelectionOverlay(capStartEdge: false, capEndEdge: false),
+                        selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(capStartEdge: false, capEndEdge: false),
                         selectedStyle: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -190,12 +184,12 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
               flex: 5,
               child: Container(
                 alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(right: 5),
+                margin: const EdgeInsets.only(right: 5),
                 width: double.maxFinite,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
-                      EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
+                      const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
                     shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0), )),
                     backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.colorMain),
@@ -220,7 +214,7 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
                     MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text(
+                        child: const Text(
                           "ย้อนกลับ",
                           style: TextStyle(
                               color: Colors.white,
@@ -238,12 +232,12 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
               flex: 5,
               child: Container(
                 alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(left: 5),
+                margin: const EdgeInsets.only(left: 5),
                 width: double.maxFinite,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
-                      EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
+                      const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
                     shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0), )),
                     backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.colorMain),
@@ -264,7 +258,7 @@ class _SelectStartMedicine extends State<SelectStartMedicine> {
                     MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text(
+                        child: const Text(
                           "ถัดไป",
                           style: TextStyle(
                               color: Colors.white,

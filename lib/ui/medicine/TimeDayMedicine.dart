@@ -1,31 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:io';
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui';
 
+import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
 import '../../model/ModelDayMedicine.dart';
 import '../../tool/color.dart'; 
-import '../../tool/loader.dart';
-import '../../tool/screen.dart';
 import '../../tool/url.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io' as Io;
 import 'package:bottom_sheet/bottom_sheet.dart';
-
-
 import 'AddTimeAlertMedicine.dart';
+
 class TimeDayMedicine extends StatefulWidget {
   TimeDayMedicine();
   @override

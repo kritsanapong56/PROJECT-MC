@@ -43,8 +43,9 @@ class _AllAmountMedicine extends State<AllAmountMedicine> {
 
   @override
   void initState() {
-    for (int j = 0; j <= 1000; j++) {
+    for (int j = 10; j <= 300; j += 10) {
       num.add(j);
+      
     }
     super.initState();
   }
@@ -113,7 +114,7 @@ class _AllAmountMedicine extends State<AllAmountMedicine> {
                       },
                       selectionOverlay: CupertinoPickerDefaultSelectionOverlay(capEndEdge: false, capStartEdge: false),
                       scrollController: FixedExtentScrollController(
-                        initialItem: 1,
+                        initialItem: 0,
                       ),
                       children: List<Widget>.generate(
                         num.length,

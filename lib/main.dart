@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:alarm/alarm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_alarm_safealert/periodic_alarm.dart';
 import 'package:flutter_alarm_safealert/tool/color.dart';
 import 'package:flutter_alarm_safealert/tool/url.dart';
 import 'package:flutter_alarm_safealert/ui/Home.dart';
@@ -12,7 +15,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:just_audio/just_audio.dart';
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    new FlutterLocalNotificationsPlugin();
 final FirebaseMessaging messaging = FirebaseMessaging.instance;
 final flutterRingtonePlayer = FlutterRingtonePlayer;
 final audioPlayer = AudioPlayer();
@@ -24,7 +29,7 @@ Future<void> main() async {
   // await Alarm.init(showDebugLogs: true);
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
-
+  requestPermission();
   FirebaseMessaging.instance.getInitialMessage().then((message) {
     if (message != null) {
       print('TERMINATED');
@@ -46,7 +51,7 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
   // flutterLocalNotificationsPlugin.cancelAll();
   pushFCMtoken();
-  initMessaging();
+  await initLocalNotification();
   configLoading();
   runApp(MyApp());
 }
@@ -58,34 +63,53 @@ void pushFCMtoken() async {
   AppUrl.FCM_token = token!;
   // await sendFCMtoServer();
 }
+
+/// Shows notification permission request.
+Future<bool> requestPermission() async {
+  late bool? result;
+
+  if (Platform.isAndroid) {
+    result = await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
+  } else {
+    result = await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+  return result ?? false;
+}
+
 void initMessaging() {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   AndroidInitializationSettings initializationSettingsAndroid;
   InitializationSettings initializationSettings;
 
   initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_launcher');
-  initializationSettings = new InitializationSettings(android: initializationSettingsAndroid );
+  initializationSettings = new InitializationSettings(android: initializationSettingsAndroid);
   flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.initialize(initializationSettings);
   var androidDetails = new AndroidNotificationDetails(
-    'your channel id', 'your channel name',
+    'your channel id',
+    'your channel name',
     importance: Importance.max,
     priority: Priority.high,
-
   );
-  var generalNotificationDetails =
-  NotificationDetails(android: androidDetails );
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {     RemoteNotification? notification=message.notification;
-  AndroidNotification? android=message.notification?.android;
-  Map<String, dynamic> data = message.data;
-  // int.parse(data["alert_id"]),
-  if(notification!=null){
-    flutterLocalNotificationsPlugin.show(
-        notification.hashCode, notification.title, notification.
-    body, generalNotificationDetails);
-  }
+  var generalNotificationDetails = NotificationDetails(android: androidDetails);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    Map<String, dynamic> data = message.data;
+    // int.parse(data["alert_id"]),
+    if (notification != null) {
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode, notification.title, notification.body, generalNotificationDetails);
+    }
   });
-
 }
 
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -99,9 +123,11 @@ Future<void> _messageHandler(RemoteMessage message) async {
   //   volume: 1, // Android only - API >= 28
   //   asAlarm: false, // Android only - all APIs
   // );
-
 }
 
+initLocalNotification() async {
+  await PeriodicAlarm.init();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -110,9 +136,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // FlutterStatusbarcolor.setStatusBarColor(Colors.white);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: AppColors.colorMain
-    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.colorMain));
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -132,12 +156,10 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           locale: const Locale('th'),
-          supportedLocales: const [Locale('en') ],
-
+          supportedLocales: const [Locale('en')],
           home: Home(),
           builder: EasyLoading.init(),
-        )
-    );
+        ));
   }
 }
 
@@ -150,12 +172,11 @@ void configLoading() {
     ..radius = 10.0
     ..progressColor = AppColors.colorMain
     ..backgroundColor = Colors.white // พื้นหลัง loader
-    ..indicatorColor = AppColors.color// สี loader
+    ..indicatorColor = AppColors.color // สี loader
     ..textColor = AppColors.colorBlue // สีข้อความ ใน loader
     ..textStyle = TextStyle(fontFamily: 'SukhumvitSet-Bold')
     ..maskColor = Colors.deepPurple.withOpacity(0.3) // สีพื้นหลัง loader
     ..userInteractions =
-    false // พอมี loader ขึ้นมาแล้วจะกดข้างหลังได้หรือไม่ true จะกดได้ false จะกดไ่ม่ได้
+        false // พอมี loader ขึ้นมาแล้วจะกดข้างหลังได้หรือไม่ true จะกดได้ false จะกดไ่ม่ได้
     ..maskType = EasyLoadingMaskType.custom; // พื้นหลัง loader แบบ custom
 }
-

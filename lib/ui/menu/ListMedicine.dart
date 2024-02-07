@@ -126,17 +126,17 @@ class _ListMedicine extends State<ListMedicine> {
                         size: 40,
                         color: Colors.black,),
                       title: Text(
-                        "${objType.medicine_name}\n${objType.amount_unit_sub} ${objType.unit_sub_name} ${objType.time_day_name}",
+                        "${objType.medicine_name}\n${objType.amount_unit_sub} ${objType.unit_sub_name}",
                         style: TextStyle(
                             fontSize: 22.0,
                             fontFamily: 'SukhumvitSet-Medium',
                             color: Colors.black),),
-                      subtitle: Text(
-                        objType.time_take_name,
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontFamily: 'SukhumvitSet-Medium',
-                            color: Colors.black),),
+                      // subtitle: Text(
+                      //   objType.time_take_name,
+                      //   style: TextStyle(
+                      //       fontSize: 16.0,
+                      //       fontFamily: 'SukhumvitSet-Medium',
+                      //       color: Colors.black),),
                     ),
                   )
               );

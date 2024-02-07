@@ -43,7 +43,7 @@ class _LimitMedicinePerTime extends State<LimitMedicinePerTime> {
 
   @override
   void initState() {
-    for (int j = 0; j <= 1000; j++) {
+    for (int j = 1; j <= 10; j++) {
       num.add(j);
     }
     super.initState();
@@ -124,7 +124,7 @@ class _LimitMedicinePerTime extends State<LimitMedicinePerTime> {
                       },
                       selectionOverlay: CupertinoPickerDefaultSelectionOverlay(capEndEdge: false, capStartEdge: false),
                       scrollController: FixedExtentScrollController(
-                        initialItem: 1,
+                        initialItem: 0,
                       ),
                       children: List<Widget>.generate(
                         num.length,

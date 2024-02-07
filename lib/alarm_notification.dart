@@ -8,25 +8,25 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-const String alarmStopActionId = 'stop';
+const String alarmStopActionId = 'ข้าม';
 
-const String alarmSnoozeActionId = 'snooze';
+const String alarmTakeActionId = 'รับ';
+
+const String alarmSnoozeActionId = 'เลื่อนเวลา';
 
 class AlarmNotification {
   AlarmNotification._();
 
   static final instance = AlarmNotification._();
 
-  final FlutterLocalNotificationsPlugin localNotif =
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin localNotif = FlutterLocalNotificationsPlugin();
 
   static final StreamController<String?> selectNotificationStream =
       StreamController<String?>.broadcast();
 
   /// Adds configuration for local notifications and initialize service.
   Future<void> init() async {
-    const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettingsIOS = DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -39,15 +39,12 @@ class AlarmNotification {
 
     await localNotif.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse:
-          (NotificationResponse notificationResponse) {
+      onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) {
         switch (notificationResponse.notificationResponseType) {
           case NotificationResponseType.selectedNotification:
-            selectNotificationStream.add(notificationResponse.id.toString());
             selectNotificationStream.add(notificationResponse.payload);
             break;
           case NotificationResponseType.selectedNotificationAction:
-            selectNotificationStream.add(notificationResponse.id.toString());
             selectNotificationStream.add(notificationResponse.actionId);
 
             break;
@@ -92,21 +89,19 @@ class AlarmNotification {
     // Future.delayed(const Duration(milliseconds: 4000), () {
     //   FlutterRingtonePlayer.stop();
     // });
-
   }
+
   /// Shows notification permission request.
   Future<bool> requestPermission() async {
     late bool? result;
 
     if (Platform.isAndroid) {
       result = await localNotif
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
           ?.requestPermission();
     } else {
       result = await localNotif
-          .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
           ?.requestPermissions(
             alert: true,
             badge: true,
@@ -120,14 +115,6 @@ class AlarmNotification {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
     tz.TZDateTime scheduledDate = tz.TZDateTime.from(
-      // DateTime(
-      //   now.year,
-      //   now.month,
-      //   now.day,
-      //   time.hour,
-      //   time.minute,
-      //   time.second,
-      // ),
       time,
       tz.local,
     );
@@ -143,6 +130,7 @@ class AlarmNotification {
     required DateTime dateTime,
     required String title,
     required String body,
+    String? payload,
   }) async {
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails(
       presentSound: false,
@@ -161,12 +149,6 @@ class AlarmNotification {
       playSound: false,
       category: AndroidNotificationCategory.alarm,
       visibility: NotificationVisibility.public,
-      actions: <AndroidNotificationAction>[
-        AndroidNotificationAction(alarmStopActionId, 'Stop',
-            showsUserInterface: true, cancelNotification: true),
-        AndroidNotificationAction(alarmSnoozeActionId, 'Snooze',
-            showsUserInterface: true, cancelNotification: true),
-      ],
     );
 
     const platformChannelSpecifics = NotificationDetails(
@@ -189,11 +171,10 @@ class AlarmNotification {
         body,
         zdt,
         platformChannelSpecifics,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        payload: payload,
       );
-      debugPrint(
-          '[Alarm] Notification with id $id scheduled successfuly at $zdt');
+      debugPrint('[Alarm] Notification with id $id scheduled successfuly at $zdt');
     } catch (e) {
       debugPrint('[Alarm] Schedule notification with id $id error: $e');
     }

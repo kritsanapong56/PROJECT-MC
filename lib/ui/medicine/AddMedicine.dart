@@ -1,30 +1,15 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:io';
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
+import 'package:flutter_alarm_safealert/ui/medicine/Frequency.dart';
 import '../../model/ModelTimeTakeMedicine.dart';
 import '../../tool/color.dart'; 
-import '../../tool/loader.dart';
+
 import '../../tool/screen.dart';
 import '../../tool/url.dart';
-import '../../ui/home/HomeMain.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io' as Io;
 
-import 'TypeMedicine.dart';
+
 class AddMedicine extends StatefulWidget {
   final medicine_id;
   final medicine_name;
@@ -42,10 +27,10 @@ class _AddMedicine extends State<AddMedicine> {
   var _selectedTimeTakeId = "0";
   // List<String> _options = ['ก่อนอาหาร', 'หลังอาหาร', 'ทานพร้อมอาหาร','ทานตามอาการ'];
   List<ModelTimeTakeMedicine> listTimeTake = [
-    ModelTimeTakeMedicine(timeTakeId: "1", timeTakeName: 'ก่อนอาหาร'),
-    ModelTimeTakeMedicine(timeTakeId: "2", timeTakeName: 'หลังอาหาร'),
-    ModelTimeTakeMedicine(timeTakeId: "3", timeTakeName: 'ทานพร้อมอาหาร'),
-    ModelTimeTakeMedicine(timeTakeId: "4", timeTakeName: 'ทานตามอาการ'),
+    // ModelTimeTakeMedicine(timeTakeId: "1", timeTakeName: 'ก่อนอาหาร'),
+    // ModelTimeTakeMedicine(timeTakeId: "2", timeTakeName: 'หลังอาหาร'),
+    // ModelTimeTakeMedicine(timeTakeId: "3", timeTakeName: 'ทานพร้อมอาหาร'),
+    // ModelTimeTakeMedicine(timeTakeId: "4", timeTakeName: 'ทานตามอาการ'),
   ];
   @override
   void initState() {
@@ -55,18 +40,18 @@ class _AddMedicine extends State<AddMedicine> {
     if(widget.medicine_name.toString().isNotEmpty){
       txtMedicine.text = widget.medicine_name;
     }
-    loadDataTimeTake();
-    super.initState();
+    // loadDataTimeTake();
+    super.initState(); 
   }
-  void loadDataTimeTake() async {
-    listTimeTake.clear();
-    final list = await ModelTimeTakeMedicine.getTimeTake();
-    setState(() {
-      list.forEach((v) {
-        listTimeTake = List<ModelTimeTakeMedicine>.from(list?.map((i) => ModelTimeTakeMedicine.fromJson(i)));
-      });
-    });
-  }
+  // void loadDataTimeTake() async {
+  //   listTimeTake.clear();
+  //   final list = await ModelTimeTakeMedicine.getTimeTake();
+  //   setState(() {
+  //     list.forEach((v) {
+  //       listTimeTake = List<ModelTimeTakeMedicine>.from(list?.map((i) => ModelTimeTakeMedicine.fromJson(i)));
+  //     });
+  //   });
+  // }
   Widget _buildChipsTypeTime() {
     List<Widget> chips = [];
 
@@ -104,11 +89,11 @@ class _AddMedicine extends State<AddMedicine> {
       appBar:AppBar(
         centerTitle: true,
           backgroundColor: AppColors.colorMain,
-          title: new Text("กรุณาเพิ่มยา",style: TextStyle(
+          title: const Text("กรุณาเพิ่มยา",style: TextStyle(
             fontSize: 25,color: Colors.black,
               fontFamily: 'SukhumvitSet-Bold'),),
           leading: IconButton(
-            icon: ImageIcon(
+            icon: const ImageIcon(
                 AssetImage("assets/images/arrow_left.png"),
                   size:40,
                   color: Colors.black,
@@ -121,7 +106,7 @@ class _AddMedicine extends State<AddMedicine> {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        margin: EdgeInsets.only(top: 30.0),
+        margin: const EdgeInsets.only(top: 30.0),
         child: ListView(
           children: [
             Container(
@@ -141,13 +126,13 @@ class _AddMedicine extends State<AddMedicine> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                                      padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                                      margin: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                                      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                                       width: double.maxFinite,
                                       child: TextField(
                                         controller: txtMedicine,
                                         enabled: true,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 25.0,
                                             fontFamily: 'SukhumvitSet-Bold',
                                             color: Colors.black),
@@ -195,7 +180,7 @@ class _AddMedicine extends State<AddMedicine> {
       floatingActionButtonLocation:
       FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
-        height: 60,
+        height: 70,
         margin: const EdgeInsets.all(20),
         child:  Row(
           children: [
@@ -229,7 +214,7 @@ class _AddMedicine extends State<AddMedicine> {
                     MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text(
+                        child: const Text(
                           "ย้อนกลับ",
                           style: TextStyle(
                               color: Colors.white,
@@ -247,12 +232,12 @@ class _AddMedicine extends State<AddMedicine> {
               flex: 5,
               child: Container(
                 alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(left: 5),
+                margin: const EdgeInsets.only(left: 5),
                 width: double.maxFinite,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
-                      EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
+                      const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
                     shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0), )),
                     backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.colorMain),
@@ -262,20 +247,31 @@ class _AddMedicine extends State<AddMedicine> {
                       },),
                   ),
                   onPressed: () {
-                    if(txtMedicine.text.isNotEmpty && _selectedIndex > -1) {
+                    if(txtMedicine.text.isNotEmpty) {
                       AppUrl.objAddItemMedicine.nameMedicine = txtMedicine.text.toString();
-                      AppUrl.objAddItemMedicine.timeTakeId = _selectedTimeTakeId;
-                      _pushPageTypeMedicine(context,false);
+                     
+                      _pushPageFrequency(context,false);
                      }else {
                       _openPopupInvalidate(context,"กรุณากรอกข้อมูลให้ครบถ้วน");
                     }
                   },
+
+              //     onPressed: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => Frequency(),
+              //   ),
+              //   );
+              //   // ทำอะไรก็ตามที่คุณต้องการเมื่อกดปุ่ม "หน้าถัดไป"
+              //   // ในตัวอย่างนี้เราจะแสดงข้อมูลที่ถูกเลือก
+                
+              // },
                   child: Row(
                     mainAxisAlignment:
                     MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text(
+                        child: const Text(
                           "ถัดไป",
                           style: TextStyle(
                               color: Colors.white,
@@ -316,7 +312,7 @@ class _AddMedicine extends State<AddMedicine> {
                 children: <Widget>[
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'SukhumvitSet-Bold',
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -368,10 +364,10 @@ class _AddMedicine extends State<AddMedicine> {
       },
     );
   }
-  void _pushPageTypeMedicine(BuildContext context, bool isHorizontalNavigation) {
+  void _pushPageFrequency(BuildContext context, bool isHorizontalNavigation) {
     Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
       _buildAdaptivePageRoute(
-        builder: (context) => TypeMedicine(),
+        builder: (context) => const Frequency(),
         fullscreenDialog: !isHorizontalNavigation,
       ),
     ).then((value) {

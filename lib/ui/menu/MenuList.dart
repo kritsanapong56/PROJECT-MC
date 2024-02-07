@@ -122,68 +122,37 @@ class _MenuListState extends State<MenuList> {
                         ),
                       ),
               ),
-              InkWell(
-                onTap: (){
-                  _pushPageAddMedicine(context,false);
-                },
-                child: Container(
-                  padding: EdgeInsets.only(left: 20,right: 20,top:10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image(
-                        image: AssetImage('assets/images/add_medicine.png'),
-                        height: 80,
-                        width: 80,
-                      ),
-                      SizedBox(width: 10,),
-                      Expanded(
-                        flex: 5,
-                        child:  Text(
-                            "เพิ่มยา",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25.0,
-                                fontFamily: 'SukhumvitSet-Bold'),
-                            textAlign: TextAlign.start
-                        ),
-                      ),
 
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                  onTap: (){
-                    _pushPageListMedicine(context,false);
-                  },
-                  child:  Container(
-                        padding: EdgeInsets.only(left: 20,right: 20,top:10),
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image(
-                              image: AssetImage('assets/images/info_medicine.png'),
-                              height: 80,
-                              width: 80,
-                            ),
-                            SizedBox(width: 10,),
-                            Expanded(
-                              flex: 5,
-                              child:  Text(
-                                  "ข้อมูลยา",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 25.0,
-                                      fontFamily: 'SukhumvitSet-Bold'),
-                                  textAlign: TextAlign.start
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-              )
+              // InkWell(
+              //     onTap: (){
+              //       _pushPageListMedicine(context,false);
+              //     },
+              //     child:  Container(
+              //           padding: EdgeInsets.only(left: 20,right: 20,top:10),
+              //           child:  Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: <Widget>[
+              //               Image(
+              //                 image: AssetImage('assets/images/info_medicine.png'),
+              //                 height: 80,
+              //                 width: 80,
+              //               ),
+              //               SizedBox(width: 10,),
+              //               Expanded(
+              //                 flex: 5,
+              //                 child:  Text(
+              //                     "ข้อมูลยา",
+              //                     style: TextStyle(
+              //                         color: Colors.black,
+              //                         fontSize: 25.0,
+              //                         fontFamily: 'SukhumvitSet-Bold'),
+              //                     textAlign: TextAlign.start
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              // )
             ]),
       ),
     );
@@ -211,17 +180,17 @@ class _MenuListState extends State<MenuList> {
       // ReloadData();
     });
   }
-  void _pushPageAddMedicine(BuildContext context, bool isHorizontalNavigation) {
-    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
-      _buildAdaptivePageRoute(
-        builder: (context) => AddMedicine("",""),
-        fullscreenDialog: !isHorizontalNavigation,
-      ),
-    ).then((value) {
-      const Duration(seconds: 2);
-      // ReloadData();
-    });
-  }
+  // void _pushPageAddMedicine(BuildContext context, bool isHorizontalNavigation) {
+  //   Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+  //     _buildAdaptivePageRoute(
+  //       builder: (context) => AddMedicine("",""),
+  //       fullscreenDialog: !isHorizontalNavigation,
+  //     ),
+  //   ).then((value) {
+  //     const Duration(seconds: 2);
+  //     // ReloadData();
+  //   });
+  // }
   void _pushPageAddProfile(BuildContext context, bool isHorizontalNavigation) {
     Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
       _buildAdaptivePageRoute(

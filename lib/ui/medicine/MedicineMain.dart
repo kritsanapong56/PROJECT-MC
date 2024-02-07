@@ -91,7 +91,7 @@ class _MedicineMain extends State<MedicineMain> {
       backgroundColor:AppColors.bdColor,
       appBar: AppBar(
         backgroundColor: AppColors.colorMain,
-        title: new Text(AppUrl.objRegister.name.toString().isNotEmpty ? AppUrl.objRegister.name : "ชื่อ - นามสุกล",style: TextStyle(
+        title: new Text(AppUrl.objRegister.name.toString().isNotEmpty ? AppUrl.objRegister.name : "กรุณาเพิ่ม ชื่อ - นามสุกล",style: TextStyle(
             fontFamily: 'SukhumvitSet-Bold'),),
         leading: new Padding(
             padding: const EdgeInsets.all(8.0),

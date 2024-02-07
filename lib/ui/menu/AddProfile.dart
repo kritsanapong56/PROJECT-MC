@@ -71,18 +71,18 @@ class _AddProfileState extends State<AddProfile> {
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
-    new Timer(const Duration(milliseconds: 400), ()
+    Timer(const Duration(milliseconds: 400), ()
     {
       int yearCurrent = DateTime.now().year + 1;
       showRoundedDatePicker(
         borderRadius: 25,
         styleDatePicker: MaterialRoundedDatePickerStyle(
-          textStyleDayHeader: TextStyle(fontFamily: 'SukhumvitSet-Bold',
+          textStyleDayHeader: const TextStyle(fontFamily: 'SukhumvitSet-Bold',
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: AppColors.color_grey
           ),
-          textStyleDayOnCalendar: TextStyle(fontFamily: 'SukhumvitSet-Bold',
+          textStyleDayOnCalendar: const TextStyle(fontFamily: 'SukhumvitSet-Bold',
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: AppColors.color_grey
@@ -91,7 +91,7 @@ class _AddProfileState extends State<AddProfile> {
           sizeArrow: 40,
           colorArrowPrevious: AppColors.colorMain,
           colorArrowNext: AppColors.colorMain,
-          textStyleMonthYearHeader:TextStyle(fontFamily: 'SukhumvitSet-Bold',
+          textStyleMonthYearHeader:const TextStyle(fontFamily: 'SukhumvitSet-Bold',
               fontSize: 22,
               fontWeight: FontWeight.w500,
               color:Colors.black),
@@ -173,7 +173,7 @@ class _AddProfileState extends State<AddProfile> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Image.asset("assets/images/profile.png",width: 100,height: 100,),
-                          new Text(AppUrl.objRegister.name.toString().isNotEmpty ? AppUrl.objRegister.name : "ชื่อ - สกุล",style: TextStyle(
+                          new Text(AppUrl.objRegister.name.toString().isNotEmpty ? AppUrl.objRegister.name : "ชื่อ - สกุล",style: const TextStyle(
                               fontFamily: 'SukhumvitSet-Bold',
                           fontSize: 20),
                           textAlign: TextAlign.center,),
@@ -187,13 +187,13 @@ class _AddProfileState extends State<AddProfile> {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                                        padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                                        margin: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                                        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                                         width: double.maxFinite,
                                         child: TextField(
                                           controller: txtName,
                                           enabled: true,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 25.0,
                                               fontFamily: 'SukhumvitSet-Bold',
                                               color: Colors.black),
@@ -225,6 +225,9 @@ class _AddProfileState extends State<AddProfile> {
                               ],
                             ),
                           ),
+
+                          //ปฏิธิน
+
                           Container(
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -269,64 +272,63 @@ class _AddProfileState extends State<AddProfile> {
                                             // fillColor: Colors.white70),
                                           ),
                                         ),
-
                                     ],
                                   ),
                                 )
                               ],
                             ),
                           ),
-                          Container(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 10,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                                          padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                                          width: double.maxFinite,
-                                          child: TextField(
-                                            onTap: (){
-                                              _showGenderSelect();
-                                            },
-                                            controller: txtGender,
-                                            readOnly: true,
-                                            style: TextStyle(
-                                                fontSize: 25.0,
-                                                fontFamily: 'SukhumvitSet-Bold',
-                                                color: Colors.black),
-                                            decoration: new InputDecoration(
-                                                contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 10.0, horizontal: 15),
-                                                //ปรับตำแหน่งcursor เริ่มต้นในช่องข้อความ
-                                                border: new OutlineInputBorder(
-                                                    borderRadius:
-                                                    const BorderRadius.all(
-                                                      const Radius.circular(20.0),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        width: 0,
-                                                        style: BorderStyle.none)),
-                                                filled: true,
-                                                hintText: "เพศ :",
-                                                hintStyle: new TextStyle(
-                                                    fontFamily: 'SukhumvitSet-Medium',
-                                                    color: Colors.grey[800]),
-                                                fillColor:AppColors.bgColor),
-                                            // fillColor: Colors.white70),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   child: Row(
+                          //     mainAxisSize: MainAxisSize.max,
+                          //     children: <Widget>[
+                          //       Expanded(
+                          //         flex: 10,
+                          //         child: Column(
+                          //           crossAxisAlignment: CrossAxisAlignment.center,
+                          //           children: [
+                          //             Container(
+                          //                 margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+                          //                 padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                          //                 width: double.maxFinite,
+                          //                 child: TextField(
+                          //                   onTap: (){
+                          //                     _showGenderSelect();
+                          //                   },
+                          //                   controller: txtGender,
+                          //                   readOnly: true,
+                          //                   style: TextStyle(
+                          //                       fontSize: 25.0,
+                          //                       fontFamily: 'SukhumvitSet-Bold',
+                          //                       color: Colors.black),
+                          //                   decoration: new InputDecoration(
+                          //                       contentPadding:
+                          //                       const EdgeInsets.symmetric(
+                          //                           vertical: 10.0, horizontal: 15),
+                          //                       //ปรับตำแหน่งcursor เริ่มต้นในช่องข้อความ
+                          //                       border: new OutlineInputBorder(
+                          //                           borderRadius:
+                          //                           const BorderRadius.all(
+                          //                             const Radius.circular(20.0),
+                          //                           ),
+                          //                           borderSide: BorderSide(
+                          //                               width: 0,
+                          //                               style: BorderStyle.none)),
+                          //                       filled: true,
+                          //                       hintText: "เพศ :",
+                          //                       hintStyle: new TextStyle(
+                          //                           fontFamily: 'SukhumvitSet-Medium',
+                          //                           color: Colors.grey[800]),
+                          //                       fillColor:AppColors.bgColor),
+                          //                   // fillColor: Colors.white70),
+                          //                 ),
+                          //               ),
+                          //           ],
+                          //         ),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

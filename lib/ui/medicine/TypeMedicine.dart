@@ -1,32 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:io';
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
 import '../../model/ModelTypeMedicine.dart';
 import '../../tool/color.dart'; 
 import '../../tool/loader.dart';
-import '../../tool/screen.dart';
 import '../../tool/url.dart';
-import '../../ui/home/HomeMain.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io' as Io;
 import 'package:bottom_sheet/bottom_sheet.dart';
-
 import 'LimitMedicinePerTime.dart';
-import 'PeriodMedicine.dart';
 class TypeMedicine extends StatefulWidget {
   TypeMedicine();
   @override
@@ -84,9 +65,9 @@ class _TypeMedicine extends State<TypeMedicine> {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        margin: EdgeInsets.only(top: 30.0,left: 20,right: 20),
+        margin: const EdgeInsets.only(top: 30.0,left: 20,right: 20),
         child: Expanded( // ส่วนของลิสรายการ
-          child: listTypeMedicine.length > 0 // กำหนดเงื่อนไขตรงนี้
+          child: listTypeMedicine.isNotEmpty // กำหนดเงื่อนไขตรงนี้
               ? ListView.separated( // กรณีมีรายการ แสดงปกติ
             itemCount: listTypeMedicine.length,
             itemBuilder: (context, index) {
@@ -94,7 +75,7 @@ class _TypeMedicine extends State<TypeMedicine> {
 
               Widget card; // สร้างเป็นตัวแปร
               card = Card(
-                margin: EdgeInsets.only(left:10,right: 10,bottom: 20),
+                margin: const EdgeInsets.only(left:10,right: 10,bottom: 20),
                 color: AppColors.bgColor, // สี
                 // shadowColor: Colors.red.withAlpha(100), // สีของเงา
                 // elevation: 5.0, // การยกของเงา
@@ -116,7 +97,7 @@ class _TypeMedicine extends State<TypeMedicine> {
                   },
                   child: ListTile(
                     title: Text(objType.typeMedicineName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 25.0,
                           fontFamily: 'SukhumvitSet-Medium',
                           color: Colors.black),),
@@ -128,7 +109,7 @@ class _TypeMedicine extends State<TypeMedicine> {
             separatorBuilder: (BuildContext context, int index) => const SizedBox(),
           )
               :   Center(child: Text(strEmpty,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontFamily: 'SukhumvitSet-Bold'),
@@ -166,11 +147,11 @@ class _TypeMedicine extends State<TypeMedicine> {
 
         Container(
           alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.only(top: 50),
+          margin: const EdgeInsets.only(top: 50),
           child: ElevatedButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
+                const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),),
               shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0), )),
               backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.colorMain),
@@ -193,8 +174,8 @@ class _TypeMedicine extends State<TypeMedicine> {
             child: Container(
               width: 120,
               alignment: Alignment.center,
-              padding: EdgeInsets.all(5),
-              child: Text(
+              padding: const EdgeInsets.all(5),
+              child: const Text(
                 "ตกลง",
                 style: TextStyle(
                     color: Colors.white,
@@ -243,33 +224,33 @@ class _TypeMedicine extends State<TypeMedicine> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-                padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                margin: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                 width: double.maxFinite,
                 child: TextField(
                   controller: txtTypeMedicine,
                   enabled: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 25.0,
                       fontFamily: 'SukhumvitSet-Bold',
                       color: Colors.black),
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                     hintMaxLines: 3,
                       contentPadding:
                       const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 15),
                       //ปรับตำแหน่งcursor เริ่มต้นในช่องข้อความ
-                      border: new OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderRadius:
-                          const BorderRadius.all(
-                            const Radius.circular(20.0),
+                          BorderRadius.all(
+                          Radius.circular(20.0),
                           ),
                           borderSide: BorderSide(
                               width: 0,
                               style: BorderStyle.none)),
                       filled: true,
                       hintText: "กรุณากรอกประเภทยาที่ต้องการ",
-                      hintStyle: new TextStyle(
+                      hintStyle: TextStyle(
                           fontFamily: 'SukhumvitSet-Medium',
                           color: Colors.grey[800]),
                       fillColor:AppColors.bgColor),
